@@ -20,3 +20,5 @@ WORKDIR /owarai_search
 
 # bundler のインストール
 RUN gem install bundler
+
+CMD ["bash", "-c", "rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"]

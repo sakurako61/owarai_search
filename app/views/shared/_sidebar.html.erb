@@ -3,8 +3,12 @@
   <aside class="min-h-full w-64 bg-base-200 p-4">
     <ul class="menu">
       <li><a>ライブ一覧</a></li>
-      <li><a>ログイン</a></li>
-      <li><a>新規登録</a></li>
+      <% if user_signed_in? %>
+        <li><%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-ghost btn-sm w-full text-left" %></li>
+      <% else %>
+        <li><%= link_to "ログイン", new_user_session_path %></li>
+        <li><%= link_to "新規登録", new_user_registration_path %></li>
+      <% end %>
     </ul>
   </aside>
 </div>

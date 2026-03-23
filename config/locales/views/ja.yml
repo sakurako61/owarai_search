@@ -1,0 +1,14 @@
+ja:
+  helpers:
+    submit:
+      user:
+        create: "登録する"
+        update: "更新する"
+  devise:
+    shared:
+      links:
+        log_in: "ログイン"
+        sign_up: "新規登録"
+        forgot_password: "パスワードをお忘れですか？"
+        no_confirmation: "確認メールが届きませんでしたか？"
+        no_unlock: "ロック解除メールが届きませんでしたか？"

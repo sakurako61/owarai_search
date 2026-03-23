@@ -66,5 +66,5 @@ gem "tailwindcss-rails", "~> 4.4"
 
 gem "devise", "~> 5.0"
 
-gem 'rails-i18n'
-gem 'devise-i18n-views'
+gem "rails-i18n"
+gem "devise-i18n-views"

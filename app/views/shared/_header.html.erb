@@ -1,13 +1,13 @@
-<header class="navbar bg-base-300">
+<header class="navbar bg-base-100 shadow-sm px-4 lg:px-8 min-h-14">
+  <!-- 左：メニュー -->
   <div class="flex-none">
-    <label for="app-drawer" class="btn btn-square btn-ghost">
-      <!-- Hamburger Menu Icon -->
+    <label for="app-drawer" class="btn btn-ghost btn-square btn-sm">
       <svg xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6">
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.8"
+          stroke="currentColor"
+          class="w-5 h-5">
         <path stroke-linecap="round"
               stroke-linejoin="round"
               d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -15,12 +15,30 @@
     </label>
   </div>
 
+  <!-- 中央：ロゴ -->
   <div class="flex-1">
-    <span class="text-lg font-bold">お笑いライブ検索アプリ</span>
+    <span class="text-lg font-semibold tracking-wide">
+      お笑いライブ検索アプリ
+    </span>
   </div>
 
-  <div class="flex-none flex items-center gap-3">
-    <%= link_to "ログイン", "#", class: "btn btn-ghost btn-sm" %>
-    <%= link_to "新規登録", "#", class: "btn btn-primary btn-sm" %>
+  <!-- 右：ナビ -->
+  <div class="flex-none flex items-center gap-2 sm:gap-3">
+    <% if user_signed_in? %>
+      <span class="text-sm opacity-70 hidden sm:inline">
+        <%= current_user.name %>
+      </span>
+      <%= button_to "ログアウト",
+            destroy_user_session_path,
+            method: :delete,
+            class: "btn btn-ghost btn-sm" %>
+    <% else %>
+      <%= link_to "ログイン",
+            new_user_session_path,
+            class: "btn btn-ghost btn-sm" %>
+      <%= link_to "新規登録",
+            new_user_registration_path,
+            class: "btn btn-primary btn-sm" %>
+    <% end %>
   </div>
 </header>

@@ -24,21 +24,11 @@
 
   <!-- 右：ナビ -->
   <div class="flex-none flex items-center gap-2 sm:gap-3">
-    <% if user_signed_in? %>
-      <span class="text-sm opacity-70 hidden sm:inline">
-        <%= current_user.name %>
-      </span>
-      <%= button_to "ログアウト",
-            destroy_user_session_path,
-            method: :delete,
-            class: "btn btn-ghost btn-sm" %>
-    <% else %>
-      <%= link_to "ログイン",
-            new_user_session_path,
-            class: "btn btn-ghost btn-sm" %>
-      <%= link_to "新規登録",
-            new_user_registration_path,
-            class: "btn btn-primary btn-sm" %>
-    <% end %>
-  </div>
+    <%= link_to "ログイン",
+          new_user_session_path,
+          class: "btn btn-ghost btn-sm" %>
+    <%= link_to "新規登録",
+          new_user_registration_path,
+          class: "btn btn-primary btn-sm" %>
+  </div-->
 </header>

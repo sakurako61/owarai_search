@@ -70,3 +70,5 @@ gem "rails-i18n"
 gem "devise-i18n-views"
 
 gem 'active_storage_validations'
+
+gem "cloudinary", "~> 2.4"

@@ -1,6 +1,7 @@
 require_relative "boot"
 
 require "rails/all"
+require "active_storage_validations"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -18,6 +19,9 @@ module OwaraiSearch
 
     # デフォルトの言語を日本語に設定
     config.i18n.default_locale = :ja
+
+    # バリアント作成時の処理で使うバリアントプロセッサの設定をvipsにする
+    config.active_storage.variant_processor = :vips   # 追加
 
     # Configuration for the application, engines, and railties goes here.
     #

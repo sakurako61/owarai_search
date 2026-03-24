@@ -68,3 +68,5 @@ gem "devise", "~> 5.0"
 
 gem "rails-i18n"
 gem "devise-i18n-views"
+
+gem 'active_storage_validations'

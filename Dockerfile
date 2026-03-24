@@ -15,6 +15,12 @@ RUN apt-get update -qq \
 # 依存パッケージのインストール
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs yarn vim
 
+# libvips画像ライブラリのインストール
+RUN apt-get update && \
+    apt-get install -y libvips42 libvips-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # 作業ディレクトリの設定
 WORKDIR /owarai_search
 

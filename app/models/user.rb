@@ -4,6 +4,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
 
+  ACCEPTED_CONTENT_TYPES = %w[image/jpeg image/png image/gif image/webp].freeze
+
+  has_one_attached :user_image
+
+  validates :user_image, content_type: ACCEPTED_CONTENT_TYPES,
+                        size: { less_than_or_equal_to: 5.megabytes }
+
   validates :password, length: { minimum: 8 }, if: -> { new_record? || changes[:encrypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:encrypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:encrypted_password] }

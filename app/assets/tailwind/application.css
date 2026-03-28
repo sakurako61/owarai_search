@@ -1,2 +1,43 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: false;
+}
+
+@plugin "daisyui/theme" {
+  name: "warai-hub";
+  default: true;
+
+  /* ボタン：黒 */
+  --color-primary: oklch(15% 0.02 0);
+  --color-primary-content: oklch(100% 0 0);
+
+  --color-warning: oklch(82.8% 0.189 84.4);
+  --color-warning-content: oklch(20% 0.05 84.4);
+
+  /* カード背景 (yellow-50) */
+  --color-base-100: oklch(98.7% 0.026 95.6);
+
+  /* ページ・入力欄背景 (white) */
+  --color-base-200: oklch(100% 0 0);
+
+  /* ヘッダー・フッター背景 (#F8FE1C) */
+  --color-base-300: oklch(96.5% 0.21 109.8);
+
+  /* テキスト */
+  --color-base-content: oklch(20% 0.02 0);
+
+  /* ボーダー・シャドウの深さ（0=非表示、1=表示） */
+  --depth: 10;
+
+  /* 角丸 (DaisyUI v5 の正しい変数名) */
+  --radius-box: 1rem;
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+}
+
+/* 入力枠を常時 warning カラーで表示 */
+@layer utilities {
+  .input.input-warning {
+    --input-color: var(--color-warning);
+  }
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="warai-hub">
   <head>
     <title><%= content_for(:title) || "Owarai Search" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,38 +18,20 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
-    <div class="drawer">
-      <input id="app-drawer" type="checkbox" class="drawer-toggle" />
-      <!-- メイン -->
-      <div class="drawer-content flex flex-col min-h-screen">
-        <%= render "shared/header" %>
-        <main class="flex-grow bg-base-200">
-          <div class="w-full max-w-5xl mx-auto px-4 py-10">
-
-            <% if notice %>
-              <div role="alert" class="alert bg-lime-100 border border-lime-300 text-lime-900 shadow-md mb-6 max-w-2xl mx-auto">
-                <span><%= notice %></span>
-              </div>
-            <% end %>
-
-            <% if alert %>
-              <div role="alert" class="alert bg-red-100 border border-red-300 text-red-900 shadow-md mb-6 max-w-2xl mx-auto">
-                <span><%= alert %></span>
-              </div>
-            <% end %>
-
-            <!-- 🔥 ここが重要：中身を中央幅に制限 -->
-            <div class="max-w-3xl mx-auto">
-              <%= yield %>
-            </div>
-
-          </div>
-        </main>
-      <%= render "shared/footer" %>
-      </div>
-      <!-- サイドバー -->
-      <%= render "shared/sidebar" %>
-    </div>
+  <!-- 重要：min-h-screen / flex / flex-col / bg-yellow-300 を body に入れる -->
+  <body class="min-h-screen flex flex-col bg-base-200 antialiased text-base-content">
+    <!--%= render 'shared/header', current_user: current_user %-->
+    <% if user_signed_in? %>
+      <%= render 'shared/header' %>
+    <% else %>
+      <%= render 'shared/before_login_header' %>
+    <% end %>
+    <!-- main は flex-1 -->
+    <main class="flex-1">
+      <%= render 'shared/flash_message' %>
+      <%= yield %>
+    </main>
+    
+    <%= render 'shared/footer' %>
   </body>
 </html>

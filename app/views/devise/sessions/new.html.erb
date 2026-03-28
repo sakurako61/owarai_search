@@ -1,44 +1,53 @@
-<div class="px-4">
-  <div class="card w-full max-w-md mx-auto bg-base-100 shadow-2xl">
+<% content_for :suppress_layout_flash, true %>
+<div class="px-4 pt-12">
+  <div class="card w-full max-w-md mx-auto bg-base-200 border-2 border-warning shadow-2xl rounded-2xl">
     <div class="card-body p-6">
       <h2 class="card-title text-xl justify-center mb-4">ログイン</h2>
+
+      <% if alert %>
+        <div class="alert alert-error rounded-lg mb-2 text-sm" data-turbo-temporary>
+          <%= alert %>
+        </div>
+      <% end %>
 
       <%= form_with(model: resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="space-y-3">
 
           <div class="form-control">
-            <%= f.label :email, "メールアドレス", class: "label py-0.5" %>
+            <%= f.label :email, class: "label py-0.5" %>
             <%= f.email_field :email,
                   autofocus: true,
                   autocomplete: "email",
-                  class: "input input-bordered w-full h-10" %>
+                  class: "input input-warning w-full h-10 bg-base-200",
+                  style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
           </div>
 
           <div class="form-control">
-            <%= f.label :password, "パスワード", class: "label py-0.5" %>
+            <%= f.label :password, class: "label py-0.5" %>
             <%= f.password_field :password,
                   autocomplete: "current-password",
-                  class: "input input-bordered w-full h-10" %>
+                  class: "input input-warning w-full h-10 bg-base-200",
+                  style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
           </div>
 
           <% if devise_mapping.rememberable? %>
             <div class="form-control">
               <label class="label cursor-pointer justify-start gap-3">
-                <%= f.check_box :remember_me, class: "checkbox checkbox-sm" %>
+                <%= f.check_box :remember_me, class: "checkbox checkbox-sm checkbox-warning" %>
                 <span class="label-text">ログイン状態を保持する</span>
               </label>
             </div>
           <% end %>
 
           <div class="form-control pt-1">
-            <%= f.submit "ログイン", class: "btn btn-primary w-full h-10" %>
+            <%= f.submit "ログイン", class: "btn btn-primary w-full h-10 rounded-lg" %>
           </div>
 
         </div>
       <% end %>
 
-      <div class="divider my-3"></div>
-      <%= render "devise/shared/links" %>
+      <!--div class="divider my-3"></div>
+      <%= render "devise/shared/links" %-->
     </div>
   </div>
 </div>

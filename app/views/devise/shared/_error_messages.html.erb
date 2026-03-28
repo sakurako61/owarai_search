@@ -1,14 +1,8 @@
 <% if resource.errors.any? %>
-  <div id="error_explanation" data-turbo-temporary>
-    <h2>
-      <%= I18n.t("errors.messages.not_saved",
-                count: resource.errors.count,
-                resource: resource.class.model_name.human.downcase) %>
-    </h2>
-    <ul>
-      <% resource.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
+  <% field_order = [:name, :email, :password, :password_confirmation, :user_image] %>
+  <% first_field = field_order.find { |f| resource.errors[f].any? } %>
+  <% first_message = first_field ? resource.errors.full_messages_for(first_field).first : resource.errors.full_messages.first %>
+  <div class="alert alert-error rounded-lg mb-4 text-sm" data-turbo-temporary>
+    <%= first_message %>
   </div>
 <% end %>

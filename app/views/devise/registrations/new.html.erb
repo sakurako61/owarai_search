@@ -1,19 +1,24 @@
-<div class="px-4">
-  <div class="card w-full max-w-md mx-auto bg-base-100 shadow-2xl">
+<div class="px-4 pt-12">
+  <div class="card w-full max-w-md mx-auto bg-base-200 border-2 border-warning shadow-2xl rounded-2xl">
     <div class="card-body p-6">
       <h2 class="card-title text-2xl justify-center mb-4">新規登録</h2>
 
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true }) do |f| %>
+      <% focus_field = [:name, :email, :password, :password_confirmation].find { |f| resource.errors[f].any? } || :name %>
+      <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), multipart: true) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="form-control mb-4">
           <%= f.label :name, class: "label" %>
-          <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "input input-bordered w-full" %>
+          <%= f.text_field :name, autofocus: focus_field == :name, autocomplete: "name",
+                class: "input input-warning w-full bg-base-200",
+                style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
         </div>
 
         <div class="form-control mb-4">
           <%= f.label :email, class: "label" %>
-          <%= f.email_field :email, autocomplete: "email", class: "input input-bordered w-full" %>
+          <%= f.email_field :email, autofocus: focus_field == :email, autocomplete: "email",
+                class: "input input-warning w-full bg-base-200",
+                style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
         </div>
 
         <div class="form-control mb-4">
@@ -21,18 +26,23 @@
           <% if @minimum_password_length %>
             <span class="text-xs text-gray-500 ml-1"><%= @minimum_password_length %>文字以上</span>
           <% end %>
-          <%= f.password_field :password, autocomplete: "new-password", class: "input input-bordered w-full" %>
+          <%= f.password_field :password, autofocus: focus_field == :password, autocomplete: "new-password",
+                class: "input input-warning w-full bg-base-200",
+                style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
         </div>
 
         <div class="form-control mb-4">
           <%= f.label :password_confirmation, class: "label" %>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input input-bordered w-full" %>
+          <%= f.password_field :password_confirmation, autofocus: focus_field == :password_confirmation, autocomplete: "new-password",
+                class: "input input-warning w-full bg-base-200",
+                style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
         </div>
 
         <div class="form-control mb-4">
           <%= f.label :user_image, class: "label" %>
           <%= f.file_field :user_image,
-              class: "file-input file-input-bordered w-full",
+              class: "file-input file-input-primary w-full h-10 bg-base-200 file:h-full file:self-stretch",
+              style: "box-shadow: 0 0 0 1px var(--color-warning) inset",
               accept: User::ACCEPTED_CONTENT_TYPES.join(",") %>
           <small class="text-xs text-gray-500 mt-1">
             ※ JPEG・PNG・GIF・WebP形式（5MB以下）のみアップロード可能です
@@ -40,12 +50,12 @@
         </div>
 
         <div class="form-control mt-4">
-          <%= f.submit class: "btn btn-primary w-full" %>
+          <%= f.submit class: "btn btn-primary w-full rounded-lg" %>
         </div>
       <% end %>
 
-      <div class="divider"></div>
-      <%= render "devise/shared/links" %>
+      <!--div class="divider"></div>
+      <%= render "devise/shared/links" %-->
     </div>
   </div>
 </div>

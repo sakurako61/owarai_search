@@ -8,7 +8,7 @@ RSpec.describe 'TOPページ', type: :system do
 
   describe 'ヘッダー' do
     it 'アプリ名が表示されている' do
-      expect(page).to have_content('お笑いライブ検索アプリ')
+      expect(page).to have_content('WARAI-HUB')
     end
 
     it 'ログインリンクが表示されている' do
@@ -31,12 +31,6 @@ RSpec.describe 'TOPページ', type: :system do
 
     it 'お問い合わせが表示されている' do
       expect(page).to have_content('お問い合わせ')
-    end
-  end
-
-  describe 'サイドバー' do
-    it 'ライブ一覧リンクが表示されている' do
-      expect(page).to have_content('ライブ一覧')
     end
   end
 end

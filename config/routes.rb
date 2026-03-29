@@ -15,4 +15,6 @@ Rails.application.routes.draw do
 
   # root to: "home#index"
   root "static_pages#top"
+
+  resources :posts, only: %i[index, create, new, destroy]
 end

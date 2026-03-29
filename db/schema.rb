@@ -98,7 +98,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_29_025042) do
     t.datetime "end_date"
     t.datetime "ticket_start_date"
     t.datetime "ticket_end_date"
-    t.money "price", scale: 2
+    t.integer "price"
     t.text "live_url", null: false
     t.bigint "user_id"
     t.bigint "place_id"

@@ -8,7 +8,7 @@ class CreatePosts < ActiveRecord::Migration[7.2]
       t.datetime :end_date
       t.datetime :ticket_start_date
       t.datetime :ticket_end_date
-      t.money :price
+      t.integer :price
       t.text :live_url, null: false
 
       t.references :user, foreign_key: true

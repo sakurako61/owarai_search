@@ -4,8 +4,6 @@ class CreatePlaces < ActiveRecord::Migration[7.2]
       t.string :name, null: false
       t.string :post_code, limit: 8
       t.string :address, null: false
-      t.datetime :created_at
-      t.datetime :updated_at
 
       t.timestamps
     end

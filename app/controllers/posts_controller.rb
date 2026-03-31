@@ -13,7 +13,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to posts_path, notice: '投稿を更新しました'
+      redirect_to posts_path, notice: "投稿を更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -21,7 +21,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: '投稿を削除しました'
+    redirect_to posts_path, notice: "投稿を削除しました"
   end
 
   private

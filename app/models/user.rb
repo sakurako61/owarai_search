@@ -9,7 +9,7 @@ class User < ApplicationRecord
   ACCEPTED_CONTENT_TYPES = %w[image/jpeg image/png image/gif image/webp].freeze
 
   has_one_attached :user_image
-  has_many :boards, dependent: :destroy
+  has_many :posts, dependent: :destroy
 
   def user_image=(attachable)
     if attachable.present? && attachable.respond_to?(:original_filename)

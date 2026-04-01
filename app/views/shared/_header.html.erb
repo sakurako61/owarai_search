@@ -1,4 +1,4 @@
-<header class="flex items-center justify-between px-8 py-4 bg-base-300 border-b border-base-300">
+<header class="flex items-center justify-between px-4 md:px-8 py-4 bg-base-300 border-b border-base-300">
   <!-- ロゴ -->
   <div class="flex items-center gap-2">
     <div class="w-8 h-8 bg-white rounded flex items-center justify-center">
@@ -9,21 +9,17 @@
     <span class="font-bold text-lg tracking-widest">WARAI-HUB</span>
   </div>
 
-  <!-- ナビ -->
+  <!-- ナビ（中画面以上で表示） -->
   <nav class="flex items-center gap-6 text-sm font-medium text-gray-800">
-    <%= link_to 'ライブ一覧', root_path, class: "hover:text-black transition-colors" %>
-    <%= link_to 'ABOUT', '#', class: "hover:text-black transition-colors" %>
-    <%= link_to 'SHOWS', '#', class: "hover:text-black transition-colors" %>
-    <%= link_to 'VIDEOS', '#', class: "hover:text-black transition-colors" %>
-    <%= link_to 'お気に入り', '#', class: "hover:text-black transition-colors" %>
+    <%= link_to 'ライブ一覧', posts_path, class: "hover:text-black transition-colors" %>
+    <%= link_to '投稿する', '#', class: "hover:text-black transition-colors" %>
     <%= link_to 'マイページ', '#', class: "hover:text-black transition-colors" %>
   </nav>
 
-  <!-- 右：認証ボタン + シェア -->
+  <!-- 右：認証ボタン + アバター -->
   <div class="flex items-center gap-3">
-    <%= link_to 'ログアウト', destroy_user_session_path, data: { turbo_method: :delete }, class: "text-sm px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors" %>
+    <%= link_to 'ログアウト', destroy_user_session_path, data: { turbo_method: :delete }, class: "hidden md:block text-sm px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors" %>
     <div class="avatar">
-      <!--div class="w-12 h-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"-->
       <div class="w-12 h-12 rounded-full">
         <% if current_user.user_image.attached? %>
           <%= image_tag current_user.user_image, class: "w-full h-full object-cover" %>
@@ -34,6 +30,6 @@
         <% end %>
       </div>
     </div>
-    <div class="text-sm font-semibold truncate"><%= current_user.name %></div>
+    <div class="hidden md:block text-sm font-semibold truncate"><%= current_user.name %></div>
   </div>
 </header>

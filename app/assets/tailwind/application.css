@@ -41,3 +41,38 @@
     --input-color: var(--color-warning);
   }
 }
+
+.post-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .post-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+  background-color: white;
+}
+
+.top-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .top-layout {
+    flex-direction: row;
+  }
+}

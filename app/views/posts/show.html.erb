@@ -125,11 +125,10 @@
     </div>
   </div>
 
-  <!-- チケットURLボタン -->
+  <!-- チケットURL -->
   <div style="text-align: center; margin-bottom: 2rem;">
-    <%= link_to @post.live_url, target: "_blank", rel: "noopener noreferrer", class: "ticket-btn" do %>
-      🎟 URLを確認する
-    <% end %>
+    <p style="font-size: 0.85rem; color: #888; margin-bottom: 0.4rem;">チケットURL（コピーしてご利用ください）</p>
+    <code style="word-break: break-all;"><%= @post.live_url %></code>
   </div>
 
   <!-- 操作ボタン -->

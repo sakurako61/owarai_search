@@ -34,7 +34,8 @@ class Post < ApplicationRecord
     end
   end
   # validates :price
-  validates :live_url, presence: true
+  validates :live_url, presence: true,
+                       format: { with: /\Ahttps?:\/\//i, message: "はhttpまたはhttpsから始まるURLを入力してください" }
 
   # place_id 場所
   belongs_to :user

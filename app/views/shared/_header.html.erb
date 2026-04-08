@@ -19,17 +19,39 @@
   <!-- 右：認証ボタン + アバター -->
   <div class="flex items-center gap-3">
     <%= link_to 'ログアウト', destroy_user_session_path, data: { turbo_method: :delete }, class: "hidden md:block text-sm px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors" %>
-    <div class="avatar">
-      <div class="w-12 h-12 rounded-full">
-        <% if current_user.user_image.attached? %>
-          <%= image_tag current_user.user_image, class: "w-full h-full object-cover" %>
-        <% else %>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-          </svg>
-        <% end %>
+
+    <!-- スマホ：アバタードロップダウン -->
+    <div class="md:hidden dropdown dropdown-end">
+      <div tabindex="0" role="button" class="avatar">
+        <div class="w-12 h-12 rounded-full">
+          <% if current_user.user_image.attached? %>
+            <%= image_tag current_user.user_image, class: "w-full h-full object-cover" %>
+          <% else %>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>
+          <% end %>
+        </div>
       </div>
+      <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-10 w-36 p-2 shadow mt-1">
+        <li><%= link_to 'ログアウト', destroy_user_session_path, data: { turbo_method: :delete } %></li>
+      </ul>
     </div>
-    <div class="hidden md:block text-sm font-semibold truncate"><%= current_user.name %></div>
+
+    <!-- PC：アバター + ユーザー名 -->
+    <div class="hidden md:flex items-center gap-3">
+      <div class="avatar">
+        <div class="w-12 h-12 rounded-full">
+          <% if current_user.user_image.attached? %>
+            <%= image_tag current_user.user_image, class: "w-full h-full object-cover" %>
+          <% else %>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>
+          <% end %>
+        </div>
+      </div>
+      <div class="text-sm font-semibold truncate"><%= current_user.name %></div>
+    </div>
   </div>
 </header>

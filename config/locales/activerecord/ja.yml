@@ -16,6 +16,6 @@ ja:
         end_date: "終演日時"
         ticket_start_date: "チケット販売開始"
         ticket_end_date: "チケット販売終了"
-        price: "料金"
+        price: "料金（税抜）"
         live_url: "情報元URL"
         live_poster: "ポスター画像"

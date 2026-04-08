@@ -5,6 +5,6 @@ class Comedian < ApplicationRecord
   has_many :groups, through: :group_comedians
 
   def self.ransackable_attributes(auth_object = nil)
-    ["name"]
+    [ "name" ]
   end
 end

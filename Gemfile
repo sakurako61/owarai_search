@@ -73,4 +73,4 @@ gem "active_storage_validations"
 
 gem "cloudinary", "~> 2.4"
 
-gem 'ransack'
+gem "ransack"

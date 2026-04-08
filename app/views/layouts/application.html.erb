@@ -27,7 +27,7 @@
     <% end %>
     <!-- main は flex-1 -->
     <main class="flex-1">
-      <%= render 'shared/flash_message' %>
+      <%= render 'shared/flash_message' unless content_for?(:suppress_layout_flash) %>
       <%= yield %>
     </main>
     

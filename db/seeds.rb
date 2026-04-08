@@ -25,6 +25,13 @@ places = [
 ]
 places.each { |p| Place.find_or_create_by!(name: p[:name]) { |pl| pl.assign_attributes(p) } }
 
+comedian_names = [
+  "ミルクボーイ", "霜降り明星", "和牛", "かまいたち", "マヂカルラブリー",
+  "ニューヨーク", "見取り図", "おいでやすこが", "錦鯉", "モグライダー",
+  "ウエストランド", "さや香", "令和ロマン", "バッテリィズ", "エバース"
+]
+comedians = comedian_names.map { |name| Comedian.find_or_create_by!(name: name) }
+
 unless Rails.env.production?
   user_ids = User.ids
   place_ids = Place.ids
@@ -36,7 +43,7 @@ unless Rails.env.production?
     ticket_start_date = open_date - 1.month
     ticket_end_date = open_date - 1.day
 
-    User.find(user_ids.sample).posts.create!(
+    post = User.find(user_ids.sample).posts.create!(
       live_name: "#{Faker::Name.name}のお笑いライブ Vol.#{index + 1}",
       description: Faker::Lorem.paragraph(sentence_count: 3),
       open_date: open_date,
@@ -48,5 +55,9 @@ unless Rails.env.production?
       live_url: "https://example.com/live/#{index + 1}",
       place_id: place_ids.sample
     )
+
+    comedians.sample(rand(1..3)).each do |comedian|
+      post.performers.create!(comedian: comedian)
+    end
   end
 end

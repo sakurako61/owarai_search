@@ -43,4 +43,12 @@ class Post < ApplicationRecord
   belongs_to :user
   belongs_to :place
   has_many :performers, dependent: :destroy
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "created_at", "description", "end_date", "id", "live_name", "live_url", "open_date", "place_id", "price", "start_date", "ticket_end_date", "ticket_start_date", "updated_at", "user_id" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "performers" ]
+  end
 end

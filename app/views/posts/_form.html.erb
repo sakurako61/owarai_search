@@ -1,0 +1,124 @@
+<%= form_with model: post, url: confirm_posts_path, method: :post, data: { turbo: false } do |f| %>
+  <%= hidden_field_tag :post_id, post.id if post.persisted? %>
+  <%# エラー表示 %>
+  <% if post.errors.any? %>
+    <div class="alert alert-error mb-4">
+      <ul>
+        <% post.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%# ライブ情報 %>
+  <%= render "form_section", title: "🎤 ライブ情報" do %>
+
+    <%= f.label :live_name %>
+    <%= f.email_field :live_name,
+          autofocus: true,
+          autocomplete: "live_name",
+          class: "input input-warning w-full h-10 bg-base-200",
+          style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
+
+    <%= f.label :place.name %>
+    <%= f.collection_select :place_id, @places, :id, :name,
+          { prompt: "選択してください" },
+          { class: "select select-warning w-full bg-base-200", style: "height: 40px; border: 1px solid orange; border-radius: 8px;" } %>
+
+    <label class="label">出演者</label>
+    <div id="performers">
+      <div class="flex items-center gap-2 mb-2">
+        <input type="text" name="performer_names[]" value="<%= @performer_names[0] %>" class="input input-warning w-full bg-base-200" style="--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" placeholder="芸人名を入力">
+      </div>
+      <% (@performer_names[1..] || []).each do |name| %>
+        <div class="flex items-center gap-2 mb-2">
+          <input type="text" name="performer_names[]" value="<%= name %>" class="input input-warning w-full bg-base-200" style="--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" placeholder="芸人名を入力">
+          <button type="button" onclick="removePerformer(this)" class="btn btn-sm btn-error">❌</button>
+        </div>
+      <% end %>
+    </div>
+
+
+    <div>
+      <button type="button" onclick="addPerformer()" class="btn btn-sm btn-outline mt-1 mb-2">
+        出演者を追加
+      </button>
+    </div>
+
+    <script>
+      function addPerformer() {
+        const container = document.getElementById("performers")
+        const div = document.createElement("div")
+        div.className = "flex items-center gap-2 mb-2"
+        div.innerHTML = `
+          <input type="text" name="performer_names[]" class="input input-warning w-full bg-base-200" style="--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" placeholder="芸人名を入力">
+          <button type="button" onclick="removePerformer(this)" class="btn btn-sm btn-error">❌</button>
+        `
+        container.appendChild(div)
+      }
+
+      function removePerformer(button) {
+        button.parentElement.remove()
+      }
+    </script>
+
+    <%= f.label :description %>
+    <%= f.text_field :description, class: "input input-warning w-full bg-base-200", style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
+
+    <%= f.label :live_url %>
+    <%= f.text_field :live_url, class: "input input-warning w-full bg-base-200", style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
+
+  <% end %>
+
+  <%# スケジュール %>
+  <%= render "form_section", title: "📅 スケジュール" do %>
+
+    <%= f.label :open_date %>
+    <%= f.datetime_local_field :open_date, class: "input input-warning w-full bg-base-200", style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
+
+    <%= f.label :start_date %>
+    <%= f.datetime_local_field :start_date, class: "input input-warning w-full bg-base-200", style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
+
+    <%= f.label :end_date %>
+    <%= f.datetime_local_field :end_date, class: "input input-warning w-full bg-base-200", style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
+  <% end %>
+
+  <%# チケット %>
+  <%= render "form_section", title: "🎫 チケット情報" do %>
+
+    <%= f.label :price %>
+    <%= f.number_field :price, class: "input input-warning w-full bg-base-200", style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
+
+    <%= f.label :ticket_start_date %>
+    <%= f.datetime_local_field :ticket_start_date, class: "input input-warning w-full bg-base-200", style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
+
+    <%= f.label :ticket_end_date %>
+    <%= f.datetime_local_field :ticket_end_date, class: "input input-warning w-full bg-base-200", style: "--input-color: var(--color-warning); box-shadow: 0 0 0 1px var(--color-warning) inset" %>
+
+  <% end %>
+
+  <%= render "form_section", title: "🖼️ライブポスター" do %>
+    <fieldset class="fieldset">
+      <% if @post.live_poster.attached? %>
+        <label class="label">現在の添付ファイル名： </label>
+        <span><%= @post.live_poster.filename %></span>
+        <div class="flex items-center gap-2 mt-2">
+          <%= check_box_tag :remove_poster, "1", false, id: "remove_poster" %>
+          <label for="remove_poster" class="label cursor-pointer">画像を削除する</label>
+        </div>
+      <% end %>
+
+      <div class="flex items-center gap-2">
+        <%= f.file_field :poster, class: "file-input bg-base-200", style: "height: 35px; border: 1px solid" %>
+      </div>
+
+      <label class="label">※ JPEG・PNG・GIF・WebP形式（5MB以下）のみアップロード可能です</label>
+    </fieldset>
+  <% end %>
+
+  <div class="mt-6">
+    <%= f.submit "確認画面へ", class: "btn btn-primary" %>
+  </div>
+
+<% end %>

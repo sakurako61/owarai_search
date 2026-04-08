@@ -1,1 +1,114 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700;900&display=swap');
+@plugin "daisyui" {
+  themes: false;
+}
+
+@plugin "daisyui/theme" {
+  name: "warai-hub";
+  default: true;
+
+  /* ボタン：黒 */
+  --color-primary: oklch(15% 0.02 0);
+  --color-primary-content: oklch(100% 0 0);
+
+  --color-warning: oklch(82.8% 0.189 84.4);
+  --color-warning-content: oklch(20% 0.05 84.4);
+
+  /* カード背景 (yellow-50) */
+  --color-base-100: oklch(98.7% 0.026 95.6);
+
+  /* ページ・入力欄背景 (white) */
+  --color-base-200: oklch(100% 0 0);
+
+  /* ヘッダー・フッター背景 (#F8FE1C) */
+  --color-base-300: oklch(96.5% 0.21 109.8);
+
+  /* テキスト */
+  --color-base-content: oklch(20% 0.02 0);
+
+  /* ボーダー・シャドウの深さ（0=非表示、1=表示） */
+  --depth: 10;
+
+  /* 角丸 (DaisyUI v5 の正しい変数名) */
+  --radius-box: 1rem;
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+
+  /* フォント */
+  --font-sans: 'Noto Sans JP', sans-serif;
+}
+
+/* 入力枠を常時 warning カラーで表示 */
+@layer utilities {
+  .input.input-warning {
+    --input-color: var(--color-warning);
+    border-bottom-color: var(--color-warning);
+  }
+}
+
+@layer components {
+  .select-warning {
+    border-color: orange;
+    background-color: #fff7ed; /* 薄いオレンジ */
+  }
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+  background-color: white;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+}
+
+.info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-bottom: 2px dashed #e5e7eb;
+  padding: 0.75rem 0;
+}
+.info-row:last-child { border-bottom: none; }
+
+.info-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.15rem;
+}
+
+.info-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-base-content);
+  line-height: 1.4;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  opacity: 0.4;
+  cursor: pointer;
+}
+
+/* ===== 詳細ページ 2列グリッド ===== */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 1.5rem;
+  align-items: start;
+}
+.detail-main { min-width: 0; }
+.detail-poster img {
+  width: 100%;
+  border-radius: 12px;
+  border: 3px solid var(--color-warning);
+  box-shadow: 6px 6px 0 var(--color-primary);
+  object-fit: cover;
+  display: block;
+}
+@media (max-width: 640px) {
+  .detail-grid { grid-template-columns: 1fr; }
+  .detail-poster { order: -1; max-width: 180px; }
+}

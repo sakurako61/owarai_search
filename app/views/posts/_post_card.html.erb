@@ -1,0 +1,81 @@
+<div class="w-full px-4 mb-6">
+  <div class="border-2 border-primary rounded-xl overflow-hidden">
+
+    <!-- タイトル -->
+    <div class="bg-black px-4 py-3">
+      <p class="text-xs font-bold tracking-widest text-white mb-1">LIVE INFO</p>
+      <h1 class="text-xl font-black text-white break-all">
+        <%= post.live_name.presence || "（未入力）" %>
+      </h1>
+    </div>
+
+    <!-- 詳細 -->
+    <div class="p-4">
+
+      <% if place %>
+        <div class="info-row">
+          <div class="info-label">会場</div>
+          <div class="info-value">📍 <%= place.name %></div>
+        </div>
+      <% end %>
+
+      <% if performer_names.any? %>
+        <div class="info-row">
+          <div class="info-label">出演者</div>
+          <div class="flex flex-wrap gap-1 mt-1">
+            <% performer_names.each do |name| %>
+              <span class="badge badge-primary"><%= name %></span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if post.description.present? %>
+        <div class="info-row">
+          <div class="info-label">説明</div>
+          <div class="info-value whitespace-pre-line">
+            <%= post.description %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if post.open_date.present? %>
+        <div class="info-row">
+          <div class="info-label">開場日時</div>
+          <div class="info-value">
+            <%= post.open_date.strftime("%Y年%-m月%-d日 %H:%M") %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if post.start_date || post.end_date %>
+        <div class="info-row">
+          <div class="info-label">公演時間</div>
+          <div class="info-value">
+            <%= post.start_date.strftime("%Y年%-m月%-d日 %H:%M") if post.start_date %> 〜
+            <%= post.end_date.strftime("%Y年%-m月%-d日 %H:%M") if post.end_date %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if post.price.present? %>
+        <div class="info-row">
+          <div class="info-label">料金</div>
+          <div class="info-value font-bold">
+            ¥<%= number_with_delimiter(post.price) %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if post.ticket_start_date || post.ticket_end_date %>
+        <div class="info-row">
+          <div class="info-label">チケット販売期間</div>
+          <div class="info-value">
+            <%= post.ticket_start_date.strftime("%Y年%-m月%-d日 %H:%M") if post.ticket_start_date %> 〜
+            <%= post.ticket_end_date.strftime("%Y年%-m月%-d日 %H:%M") if post.ticket_end_date %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

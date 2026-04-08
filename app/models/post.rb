@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  include ImageProcessable
+
   ACCEPTED_CONTENT_TYPES = %w[image/jpeg image/png image/gif image/webp].freeze
 
   has_one_attached :live_poster
@@ -14,7 +16,7 @@ class Post < ApplicationRecord
                         size: { less_than_or_equal_to: 5.megabytes }
 
   validates :live_name, presence: true, length: { maximum: 255 }
-  validates :discription, length: { maximum: 65_535 }
+  validates :description, length: { maximum: 65_535 }
 
   validate :date_order
 
@@ -35,9 +37,10 @@ class Post < ApplicationRecord
   end
   # validates :price
   validates :live_url, presence: true,
-                       format: { with: /\Ahttps?:\/\/\S+\z/i, message: "はhttpまたはhttpsから始まるURLを入力してください" }
+                      format: { with: /\Ahttps?:\/\/\S+\z/i, message: "はhttpまたはhttpsから始まるURLを入力してください" }
 
   # place_id 場所
   belongs_to :user
   belongs_to :place
+  has_many :performers, dependent: :destroy
 end

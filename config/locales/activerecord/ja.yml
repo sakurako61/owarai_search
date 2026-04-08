@@ -8,8 +8,8 @@ ja:
         password_confirmation: "パスワード（確認）"
         user_image: "プロフィール画像"
       post:
-        live_name: "ライブタイトル"
-        discription: "説明"
+        live_name: "ライブ名（公演名）"
+        description: "説明"
         place: "会場"
         open_date: "開場日時"
         start_date: "開演日時"
@@ -17,5 +17,5 @@ ja:
         ticket_start_date: "チケット販売開始"
         ticket_end_date: "チケット販売終了"
         price: "料金"
-        live_url: "ライブ情報URL"
+        live_url: "情報元URL"
         live_poster: "ポスター画像"

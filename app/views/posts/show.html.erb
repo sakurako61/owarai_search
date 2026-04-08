@@ -1,145 +1,27 @@
-<% content_for :head do %>
-<style>
-  .show-hero {
-    background: #111;
-  }
-  .info-row {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    border-bottom: 2px dashed #e5e7eb;
-    padding: 0.75rem 0;
-  }
-  .info-row:last-child {
-    border-bottom: none;
-  }
-  .ticket-btn {
-    display: inline-block;
-    background: #000;
-    color: #F8FE1C;
-    font-weight: bold;
-    font-size: 1rem;
-    padding: 0.75rem 2rem;
-    border-radius: 9999px;
-    text-decoration: none;
-    transition: opacity 0.2s;
-  }
-  .ticket-btn:hover {
-    opacity: 0.8;
-  }
-</style>
-<% end %>
+<div class="container mx-auto px-4 max-w-5xl mt-6">
+  <div class="detail-grid">
 
-<!-- ヒーローエリア -->
-<div class="show-hero px-4 py-8">
-  <div class="container mx-auto max-w-2xl">
+    <!-- 左：情報 -->
+    <div class="detail-main">
+      <%= render "post_card",
+            post: @post,
+            place: @post.place,
+            performer_names: @post.performers.map { |p| p.comedian.name } %>
 
-    <!-- ポスター画像＋タイトル横並び（画像あり） / タイトルのみ（画像なし） -->
-    <% if @post.live_poster.attached? %>
-      <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
-        <div style="flex-shrink: 0; width: 140px;">
-          <%= image_tag @post.live_poster,
-                style: "width: 140px; border-radius: 12px; border: 3px solid #F8FE1C; box-shadow: 6px 6px 0 #F8FE1C; object-fit: cover;" %>
-        </div>
-        <div style="flex: 1; min-width: 0;">
-          <p style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; color: #F8FE1C; margin-bottom: 0.25rem;">LIVE INFO</p>
-          <h1 style="font-size: 1.6rem; font-weight: 900; line-height: 1.25; color: #fff; margin-bottom: 0.75rem; word-break: break-all;"><%= @post.live_name %></h1>
-          <p style="font-size: 0.85rem; color: #ccc;">📍 <%= @post.place.name %></p>
-          <% if @post.start_date.present? %>
-            <p style="font-size: 0.85rem; color: #ccc;">🗓 <%= @post.start_date.strftime("%Y年%m月%d日 %H:%M") %> 開演</p>
-          <% end %>
-        </div>
+      <div class="flex gap-3 mt-4">
+        <%= link_to '← 一覧に戻る', posts_path, class: "btn btn-outline btn-primary" %>
+
+        <% if current_user == @post.user %>
+          <%= link_to '編集', edit_post_path(@post), class: "btn btn-primary" %>
+        <% end %>
       </div>
-    <% else %>
-      <p style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; color: #F8FE1C; margin-bottom: 0.25rem;">LIVE INFO</p>
-      <h1 style="font-size: 2rem; font-weight: 900; line-height: 1.2; color: #fff; margin-bottom: 0.75rem;"><%= @post.live_name %></h1>
-      <p style="font-size: 0.9rem; color: #ccc;">📍 <%= @post.place.name %></p>
-      <% if @post.start_date.present? %>
-        <p style="font-size: 0.9rem; color: #ccc;">🗓 <%= @post.start_date.strftime("%Y年%m月%d日 %H:%M") %> 開演</p>
-      <% end %>
-    <% end %>
-
-  </div>
-</div>
-
-<!-- 詳細情報エリア -->
-<div class="container mx-auto px-4 max-w-2xl mb-12 mt-6" style="background: white;">
-
-  <!-- 説明 -->
-  <% if @post.discription.present? %>
-    <div style="background: #fffde7; border: 2px solid #000; border-radius: 16px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;">
-      <p style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; color: #888; margin-bottom: 0.25rem;"><%= Post.human_attribute_name(:discription) %></p>
-      <p style="font-size: 0.95rem; color: #222; white-space: pre-line; line-height: 1.7;"><%= @post.discription %></p>
     </div>
-  <% end %>
 
-  <!-- スケジュール・料金テーブル -->
-  <div style="border: 2px solid #000; border-radius: 16px; overflow: hidden; margin-bottom: 1.5rem;">
-    <div style="background: #000; padding: 0.5rem 1rem;">
-      <p style="color: #F8FE1C; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em;">📅 スケジュール・料金</p>
-    </div>
-    <div style="padding: 0 1rem;">
-
-      <% if @post.open_date.present? %>
-        <div class="info-row">
-          <span style="font-size: 0.7rem; color: #888; font-weight: 600;"><%= Post.human_attribute_name(:open_date) %></span>
-          <span style="font-size: 0.95rem; font-weight: 600;"><%= @post.open_date.strftime("%Y年%m月%d日 %H:%M") %></span>
-        </div>
-      <% end %>
-
-      <% if @post.start_date.present? %>
-        <div class="info-row">
-          <span style="font-size: 0.7rem; color: #888; font-weight: 600;"><%= Post.human_attribute_name(:start_date) %></span>
-          <span style="font-size: 0.95rem; font-weight: 600;"><%= @post.start_date.strftime("%Y年%m月%d日 %H:%M") %></span>
-        </div>
-      <% end %>
-
-      <% if @post.end_date.present? %>
-        <div class="info-row">
-          <span style="font-size: 0.7rem; color: #888; font-weight: 600;"><%= Post.human_attribute_name(:end_date) %></span>
-          <span style="font-size: 0.95rem; font-weight: 600;"><%= @post.end_date.strftime("%Y年%m月%d日 %H:%M") %></span>
-        </div>
-      <% end %>
-
-      <% if @post.ticket_start_date.present? %>
-        <div class="info-row">
-          <span style="font-size: 0.7rem; color: #888; font-weight: 600;"><%= Post.human_attribute_name(:ticket_start_date) %></span>
-          <span style="font-size: 0.95rem; font-weight: 600;"><%= @post.ticket_start_date.strftime("%Y年%m月%d日 %H:%M") %></span>
-        </div>
-      <% end %>
-
-      <% if @post.ticket_end_date.present? %>
-        <div class="info-row">
-          <span style="font-size: 0.7rem; color: #888; font-weight: 600;"><%= Post.human_attribute_name(:ticket_end_date) %></span>
-          <span style="font-size: 0.95rem; font-weight: 600;"><%= @post.ticket_end_date.strftime("%Y年%m月%d日 %H:%M") %></span>
-        </div>
-      <% end %>
-
-      <% if @post.price.present? %>
-        <div class="info-row">
-          <span style="font-size: 0.7rem; color: #888; font-weight: 600;"><%= Post.human_attribute_name(:price) %></span>
-          <span style="font-size: 1.1rem; font-weight: 800; color: #000;">¥<%= number_with_delimiter(@post.price) %></span>
-        </div>
-      <% end %>
-
-    </div>
-  </div>
-
-  <!-- チケットURL -->
-  <div style="text-align: center; margin-bottom: 2rem;">
-    <p style="font-size: 0.85rem; color: #888; margin-bottom: 0.4rem;">チケットURL（コピーしてご利用ください）</p>
-    <code style="word-break: break-all;"><%= @post.live_url %></code>
-  </div>
-
-  <!-- 操作ボタン -->
-  <div class="flex gap-3">
-    <%= link_to '← 一覧に戻る', posts_path, class: "btn btn-outline btn-primary" %>
-    <% if user_signed_in? && current_user == @post.user %>
-      <%= link_to '編集', edit_post_path(@post), class: "btn btn-primary" %>
-      <%= link_to '削除', post_path(@post),
-            data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' },
-            class: "btn btn-warning" %>
+    <!-- 右：画像 -->
+    <% if @post.live_poster.attached? %>
+      <div class="detail-poster">
+        <%= image_tag @post.live_poster %>
+      </div>
     <% end %>
   </div>
-
 </div>

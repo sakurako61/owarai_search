@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_29_030000) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_08_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,7 +73,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_29_030000) do
 
   create_table "performers", force: :cascade do |t|
     t.bigint "post_id", null: false
-    t.bigint "group_id", null: false
+    t.bigint "group_id"
     t.bigint "comedian_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_29_030000) do
 
   create_table "posts", force: :cascade do |t|
     t.string "live_name", null: false
-    t.string "discription"
+    t.string "description"
     t.datetime "open_date"
     t.datetime "start_date"
     t.datetime "end_date"

@@ -38,7 +38,7 @@ unless Rails.env.production?
 
     User.find(user_ids.sample).posts.create!(
       live_name: "#{Faker::Name.name}のお笑いライブ Vol.#{index + 1}",
-      discription: Faker::Lorem.paragraph(sentence_count: 3),
+      description: Faker::Lorem.paragraph(sentence_count: 3),
       open_date: open_date,
       start_date: start_date,
       end_date: end_date,

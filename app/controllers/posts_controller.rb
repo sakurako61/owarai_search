@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: %i[index]
   before_action :set_post, :set_master_data, only: %i[show edit destroy]
 
   def index

@@ -1,0 +1,58 @@
+<div class="container mx-auto px-4 max-w-3xl mt-6">
+
+  <!-- 投稿内容 -->
+  <%= render "post_card",
+        post: @post,
+        place: @place,
+        performer_names: @performer_names %>
+
+  <!-- 確認UI -->
+  <div class="bg-yellow-50 border-2 border-black rounded-xl p-3 mb-6">
+    <p class="text-sm font-semibold">
+      この内容で投稿します。問題なければ確定してください。
+    </p>
+  </div>
+
+  <!-- ポスター -->
+  <% if @remove_poster %>
+    <div class="mb-6 p-3 bg-red-50 border border-red-300 rounded-xl">
+      <span class="text-sm font-semibold text-red-600">画像を削除します</span>
+    </div>
+  <% elsif @poster_filename.present? %>
+    <div class="mb-6 p-3 bg-gray-50 border rounded-xl">
+      <span class="text-sm font-semibold"><%= @poster_filename %></span>
+    </div>
+  <% end %>
+
+  <!-- フォーム -->
+  <%= form_with url: posts_path, method: :post do |f| %>
+
+    <%# hiddenはそのままでOK %>
+    <%= hidden_field_tag "post[live_name]", @post.live_name %>
+    <%= hidden_field_tag "post[description]", @post.description %>
+    <%= hidden_field_tag "post[place_id]", @post.place_id %>
+    <%= hidden_field_tag "post[open_date]", @post.open_date %>
+    <%= hidden_field_tag "post[start_date]", @post.start_date %>
+    <%= hidden_field_tag "post[end_date]", @post.end_date %>
+    <%= hidden_field_tag "post[ticket_start_date]", @post.ticket_start_date %>
+    <%= hidden_field_tag "post[ticket_end_date]", @post.ticket_end_date %>
+    <%= hidden_field_tag "post[price]", @post.price %>
+    <%= hidden_field_tag "post[live_url]", @post.live_url %>
+    <%= hidden_field_tag "poster_signed_id", @poster_signed_id %>
+    <%= hidden_field_tag "remove_poster", "1" if @remove_poster %>
+
+    <% @performer_names.each do |name| %>
+      <%= hidden_field_tag "performer_names[]", name %>
+    <% end %>
+
+    <div class="flex gap-3">
+      <%= link_to "← 戻る", new_post_path,
+            class: "btn btn-outline" %>
+
+      <%= f.submit "投稿する",
+            class: "btn btn-primary" %>
+    </div>
+
+  <% end %>
+
+</div>

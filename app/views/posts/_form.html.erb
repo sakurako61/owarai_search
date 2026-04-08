@@ -15,7 +15,7 @@
   <%= render "form_section", title: "🎤 ライブ情報" do %>
 
     <%= f.label :live_name %>
-    <%= f.email_field :live_name,
+    <%= f.text_field :live_name,
           autofocus: true,
           autocomplete: "live_name",
           class: "input input-warning w-full h-10 bg-base-200",

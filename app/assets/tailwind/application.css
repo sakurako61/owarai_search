@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700;900&display=swap');
 @plugin "daisyui" {
   themes: false;
 }
@@ -33,6 +34,9 @@
   --radius-box: 1rem;
   --radius-selector: 0.5rem;
   --radius-field: 0.5rem;
+
+  /* フォント */
+  --font-sans: 'Noto Sans JP', sans-serif;
 }
 
 /* 入力枠を常時 warning カラーで表示 */
@@ -42,23 +46,12 @@
   }
 }
 
-.post-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-@media (min-width: 768px) {
-  .post-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 html, body {
   overflow-x: hidden;
   max-width: 100%;
   background-color: white;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
 }
 
 .top-layout {
@@ -75,4 +68,155 @@ html, body {
   .top-layout {
     flex-direction: row;
   }
+}
+
+/* ===== ライブ詳細・確認ページ ===== */
+.live-hero {
+  background: var(--color-primary);
+  padding: 1.75rem 1rem;
+}
+
+.info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-bottom: 2px dashed #e5e7eb;
+  padding: 0.75rem 0;
+}
+.info-row:last-child { border-bottom: none; }
+.info-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.15rem;
+}
+.info-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-base-content);
+  line-height: 1.4;
+}
+.info-value--price {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+/* ===== 詳細ページ 2列グリッド ===== */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 1.5rem;
+  align-items: start;
+}
+.detail-main { min-width: 0; }
+.detail-poster img {
+  width: 100%;
+  border-radius: 12px;
+  border: 3px solid var(--color-warning);
+  box-shadow: 6px 6px 0 var(--color-primary);
+  object-fit: cover;
+  display: block;
+}
+@media (max-width: 640px) {
+  .detail-grid { grid-template-columns: 1fr; }
+  .detail-poster { order: -1; max-width: 180px; }
+}
+
+/* ===== 投稿フォーム ===== */
+.form-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #888;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.form-row {
+  padding: 0.85rem 0;
+  border-bottom: 2px dashed #e5e7eb;
+}
+.form-row:last-child { border-bottom: none; }
+
+.icon-input-wrap { position: relative; }
+.icon-input-wrap .input-icon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  color: #aaa;
+  pointer-events: none;
+}
+
+.performer-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.performer-row input { flex: 1; }
+
+.remove-performer-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 2px solid #e5e7eb;
+  border-radius: 50%;
+  color: #aaa;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.remove-performer-btn:hover { border-color: #ef4444; color: #ef4444; }
+
+.add-performer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #333;
+  background: none;
+  border: 2px solid #e5e7eb;
+  border-radius: 9999px;
+  padding: 0.35rem 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  margin-top: 0.25rem;
+}
+.add-performer-btn:hover { border-color: var(--color-primary); }
+
+.new-submit-btn {
+  display: block;
+  width: 100%;
+  background: var(--color-primary);
+  color: var(--color-warning);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.85rem 2rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: opacity 0.2s;
+}
+.new-submit-btn:hover { opacity: 0.8; }
+
+.textarea-warning:focus {
+  outline-color: var(--color-warning);
+  box-shadow: 0 0 0 1px var(--color-warning) inset;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  opacity: 0.4;
+  cursor: pointer;
 }

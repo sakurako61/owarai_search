@@ -8,8 +8,8 @@
             place: @post.place,
             performer_names: @post.performers.map { |p| p.comedian.name } %>
 
-      <div class="flex gap-3 mt-4">
-        <%= link_to '← 一覧に戻る', posts_path, class: "btn btn-outline btn-primary" %>
+      <div class="flex gap-3 mt-4 px-4">
+        <%= link_to '← 一覧に戻る', posts_path(q: params[:q]&.to_unsafe_h), class: "btn btn-ghost text-black border border-black hover:bg-black hover:text-white" %>
 
         <% if current_user == @post.user %>
           <%= link_to '編集', edit_post_path(@post), class: "btn btn-primary" %>

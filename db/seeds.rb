@@ -59,7 +59,7 @@ if Post.count.zero?
       { live_name: "霜降り明星のお笑いの日", description: "M-1王者が贈る爆笑ライブ。" },
       { live_name: "かまいたち漫才SHOW", description: "圧倒的漫才力を披露する豪華公演。" },
       { live_name: "令和ロマン単独公演", description: "若き王者による全力の漫才ライブ。" },
-      { live_name: "バッテリィズ旗揚げ公演", description: "新星コンビのお笑いライブ。笑いの嵐をお届け！" },
+      { live_name: "バッテリィズ旗揚げ公演", description: "新星コンビのお笑いライブ。笑いの嵐をお届け！" }
     ]
     demo_posts.each_with_index do |attrs, index|
       open_date = (index + 1).months.from_now

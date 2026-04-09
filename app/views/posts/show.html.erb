@@ -2,7 +2,7 @@
   <div class="detail-grid">
 
     <!-- 左：情報 -->
-    <div class="detail-main">
+    <div class="detail-main" style="order: 1;">
       <%= render "post_card",
             post: @post,
             place: @post.place,
@@ -19,7 +19,7 @@
 
     <!-- 右：画像 -->
     <% if @post.live_poster.attached? %>
-      <div class="detail-poster">
+      <div class="detail-poster px-4 mb-6 md:px-0 md:mb-0" style="order: 2;">
         <%= image_tag @post.live_poster %>
       </div>
     <% end %>

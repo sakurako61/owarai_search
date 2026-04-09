@@ -76,6 +76,13 @@
           </div>
         </div>
       <% end %>
+
+      <% if post.live_url.present? %>
+        <div class="info-row">
+          <div class="info-label">URL</div>
+          <div class="info-value break-all"><%= post.live_url %></div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

@@ -76,6 +76,15 @@
           </div>
         </div>
       <% end %>
+
+      <% if post.live_url.present? %>
+        <div class="info-row">
+          <div class="info-label">URL</div>
+          <div class="info-value">
+            <%= link_to post.live_url, post.live_url, target: "_blank", rel: "noopener noreferrer", class: "link link-primary break-all" %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

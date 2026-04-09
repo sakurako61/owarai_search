@@ -61,6 +61,10 @@ class PostsController < ApplicationController
 
     else
       # GET
+      if session[:confirm_post_params].blank? && session[:confirm_post_id].blank?
+        redirect_to new_post_path and return
+      end
+
       if session[:confirm_post_id]
         @post = current_user.posts.find(session[:confirm_post_id])
         @post.assign_attributes(session[:confirm_post_params])
